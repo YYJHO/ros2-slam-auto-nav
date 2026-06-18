@@ -211,7 +211,14 @@ def main(args=None) -> None:
 
     rclpy.init(args=args)
     node = WsadTeleop()
-    window = TeleopWindow(node)
+    try:
+        window = TeleopWindow(node)
+    except tk.TclError as exc:
+        print(f"Could not open the teleop window: {exc}")
+        print("Run this on the Ubuntu desktop where Gazebo/RViz can open.")
+        node.destroy_node()
+        rclpy.shutdown()
+        sys.exit(1)
     try:
         window.run()
     finally:

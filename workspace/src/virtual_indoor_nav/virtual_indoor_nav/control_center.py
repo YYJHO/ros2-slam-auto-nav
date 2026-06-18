@@ -1156,7 +1156,12 @@ def main() -> None:
     if tk is None or not os.environ.get("DISPLAY"):
         print("This control center requires a desktop session with DISPLAY.")
         raise SystemExit(1)
-    app = ControlCenterApp()
+    try:
+        app = ControlCenterApp()
+    except tk.TclError as exc:
+        print(f"Could not open the control center window: {exc}")
+        print("Run this on the Ubuntu desktop where Gazebo/RViz can open.")
+        raise SystemExit(1) from exc
     app.run()
 
 
