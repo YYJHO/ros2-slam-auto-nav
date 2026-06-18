@@ -1,0 +1,58 @@
+auto_explorer:
+  ros__parameters:
+    # Frames and occupancy values.
+    map_frame: map
+    robot_frame: base_footprint
+    free_threshold: 20
+    unknown_value: -1
+
+    # Startup behavior. The spin gives slam_toolbox enough observations to seed /map.
+    initial_spin_duration: 10.0
+    spin_angular_speed: 0.5
+
+    # Motion behavior. Keep exploration slower than normal navigation for stable SLAM.
+    control_rate: 10.0
+    exploration_speed: 0.3
+    narrow_pass_speed: 0.15
+    goal_tolerance: 0.4
+    angle_threshold: 0.2
+    front_obstacle_distance: 0.5
+    obstacle_avoid_angular: 0.6
+
+    # Frontier filtering. For a 0.05 m map, 0.05 m^2 is about 20 cells.
+    # Raise toward 0.10-0.20 in noisy maps; lower toward 0.02 for very narrow rooms.
+    frontier_min_area: 0.02
+    frontier_refresh_interval: 2.0
+    laser_max_range: 12.0
+
+    # Coverage-aware scoring. Information gain is dominant, distance is secondary.
+    score_weight_info: 0.45
+    score_weight_dist: 0.25
+    score_weight_size: 0.20
+    score_weight_history: 0.10
+    goal_history_size: 5
+
+    # 3-round verification: must see 0 frontiers for 3 consecutive rounds
+    # before declaring exploration complete. Each round = frontier_refresh_interval seconds.
+    verification_required_clear_rounds: 3
+    verification_round_interval: 2.0
+
+    # Stagnation and fallback. 15 refreshes x 2 seconds = 30 seconds.
+    no_frontier_streak_limit: 15
+    stagnation_window: 15
+    stagnation_coverage_threshold: 0.03
+    min_coverage_for_done: 0.95
+    max_unknown_ratio_for_done: 0.03
+    max_exploration_time: 1200.0
+    nav_failure_backoff: 1.0
+    max_goal_failures: 2
+
+    # Stuck recovery. After repeated failure, the goal is blacklisted.
+    stuck_timeout: 15.0
+    stuck_distance: 0.1
+    recovery_duration: 2.0
+    max_recovery_attempts: 3
+
+    # Narrow-passage handling from LaserScan gaps.
+    robot_width: 0.44
+    narrow_gap_multiplier: 1.5

@@ -1,0 +1,29 @@
+# ROS 2 workspace outputs
+workspace/build/
+workspace/install/
+workspace/log/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+
+# Runtime-generated data
+runtime/diagnostics/
+runtime/rooms.yaml
+runtime/maps/*.pgm
+runtime/maps/*.png
+runtime/maps/*.yaml
+!runtime/maps/README.md
+!runtime/maps/.gitkeep
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Editor/system files
+.vscode/
+.idea/
+.DS_Store
